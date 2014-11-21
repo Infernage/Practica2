@@ -28,4 +28,8 @@ public class LanguageFacade extends AbstractFacade<Language> {
         super(Language.class);
     }
     
+    public Language findByName(String name){
+        return em.createNamedQuery("Language.findByName", Language.class).setParameter("name", name)
+                .getSingleResult();
+    }
 }
