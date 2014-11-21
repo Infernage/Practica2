@@ -5,7 +5,9 @@
  */
 package ejb;
 
+import entity.Film;
 import entity.FilmCategory;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +28,10 @@ public class FilmCategoryFacade extends AbstractFacade<FilmCategory> {
 
     public FilmCategoryFacade() {
         super(FilmCategory.class);
+    }
+    
+    public List<Film> findByCategory(String categoryName){
+        return em.createNamedQuery("FilmCategory.findByCategory").setParameter("categoryName", categoryName).getResultList();
     }
     
 }

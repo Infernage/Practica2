@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FilmCategory.findAll", query = "SELECT f FROM FilmCategory f"),
     @NamedQuery(name = "FilmCategory.findByFilmId", query = "SELECT f FROM FilmCategory f WHERE f.filmCategoryPK.filmId = :filmId"),
     @NamedQuery(name = "FilmCategory.findByCategoryId", query = "SELECT f FROM FilmCategory f WHERE f.filmCategoryPK.categoryId = :categoryId"),
-    @NamedQuery(name = "FilmCategory.findByLastUpdate", query = "SELECT f FROM FilmCategory f WHERE f.lastUpdate = :lastUpdate")})
+    @NamedQuery(name = "FilmCategory.findByLastUpdate", query = "SELECT f FROM FilmCategory f WHERE f.lastUpdate = :lastUpdate"),
+    @NamedQuery(name = "FilmCategory.findByCategory", query = "Select f FROM FilmCategory f WHERE f.category.name = :categoryName ")})
 public class FilmCategory implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
