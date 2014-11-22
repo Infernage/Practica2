@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package entity;
 
 import java.io.Serializable;
@@ -23,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Entity
 @Table(name = "film_category")
@@ -32,8 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FilmCategory.findAll", query = "SELECT f FROM FilmCategory f"),
     @NamedQuery(name = "FilmCategory.findByFilmId", query = "SELECT f FROM FilmCategory f WHERE f.filmCategoryPK.filmId = :filmId"),
     @NamedQuery(name = "FilmCategory.findByCategoryId", query = "SELECT f FROM FilmCategory f WHERE f.filmCategoryPK.categoryId = :categoryId"),
-    @NamedQuery(name = "FilmCategory.findByLastUpdate", query = "SELECT f FROM FilmCategory f WHERE f.lastUpdate = :lastUpdate"),
-    @NamedQuery(name = "FilmCategory.findByCategory", query = "Select f FROM FilmCategory f WHERE f.category.name = :categoryName ")})
+    @NamedQuery(name = "FilmCategory.findByLastUpdate", query = "SELECT f FROM FilmCategory f WHERE f.lastUpdate = :lastUpdate")})
 public class FilmCategory implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -43,12 +43,12 @@ public class FilmCategory implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @JoinColumn(name = "film_id", referencedColumnName = "film_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Film film;
     @JoinColumn(name = "category_id", referencedColumnName = "category_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Category category;
+    @JoinColumn(name = "film_id", referencedColumnName = "film_id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Film film;
 
     public FilmCategory() {
     }
@@ -82,20 +82,20 @@ public class FilmCategory implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public Film getFilm() {
-        return film;
-    }
-
-    public void setFilm(Film film) {
-        this.film = film;
-    }
-
     public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Film getFilm() {
+        return film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
     }
 
     @Override
@@ -122,5 +122,5 @@ public class FilmCategory implements Serializable {
     public String toString() {
         return "entity.FilmCategory[ filmCategoryPK=" + filmCategoryPK + " ]";
     }
-    
+
 }

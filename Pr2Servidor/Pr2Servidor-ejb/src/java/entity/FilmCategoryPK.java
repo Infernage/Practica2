@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package entity;
 
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Embeddable
 public class FilmCategoryPK implements Serializable {
@@ -78,5 +79,5 @@ public class FilmCategoryPK implements Serializable {
     public String toString() {
         return "entity.FilmCategoryPK[ filmId=" + filmId + ", categoryId=" + categoryId + " ]";
     }
-    
+
 }

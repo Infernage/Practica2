@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package entity;
 
 import java.io.Serializable;
@@ -28,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Entity
 @Table(name = "language")
@@ -55,9 +56,9 @@ public class Language implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @OneToMany(mappedBy = "originalLanguageId")
-    private Collection<Film> filmCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "languageId")
+    private Collection<Film> filmCollection;
+    @OneToMany(mappedBy = "originalLanguageId")
     private Collection<Film> filmCollection1;
 
     public Language() {
@@ -139,5 +140,5 @@ public class Language implements Serializable {
     public String toString() {
         return "entity.Language[ languageId=" + languageId + " ]";
     }
-    
+
 }

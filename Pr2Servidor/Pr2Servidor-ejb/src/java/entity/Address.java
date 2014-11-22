@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package entity;
 
 import java.io.Serializable;
@@ -30,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Entity
 @Table(name = "address")
@@ -78,15 +79,15 @@ public class Address implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
+    @JoinColumn(name = "city_id", referencedColumnName = "city_id")
+    @ManyToOne(optional = false)
+    private City cityId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId")
+    private Collection<Staff> staffCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId")
     private Collection<Store> storeCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId")
     private Collection<Customer> customerCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId")
-    private Collection<Staff> staffCollection;
-    @JoinColumn(name = "city_id", referencedColumnName = "city_id")
-    @ManyToOne(optional = false)
-    private City cityId;
 
     public Address() {
     }
@@ -159,6 +160,23 @@ public class Address implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
+    public City getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(City cityId) {
+        this.cityId = cityId;
+    }
+
+    @XmlTransient
+    public Collection<Staff> getStaffCollection() {
+        return staffCollection;
+    }
+
+    public void setStaffCollection(Collection<Staff> staffCollection) {
+        this.staffCollection = staffCollection;
+    }
+
     @XmlTransient
     public Collection<Store> getStoreCollection() {
         return storeCollection;
@@ -175,23 +193,6 @@ public class Address implements Serializable {
 
     public void setCustomerCollection(Collection<Customer> customerCollection) {
         this.customerCollection = customerCollection;
-    }
-
-    @XmlTransient
-    public Collection<Staff> getStaffCollection() {
-        return staffCollection;
-    }
-
-    public void setStaffCollection(Collection<Staff> staffCollection) {
-        this.staffCollection = staffCollection;
-    }
-
-    public City getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(City cityId) {
-        this.cityId = cityId;
     }
 
     @Override
@@ -218,5 +219,5 @@ public class Address implements Serializable {
     public String toString() {
         return "entity.Address[ addressId=" + addressId + " ]";
     }
-    
+
 }

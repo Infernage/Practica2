@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package entity;
 
 import java.io.Serializable;
@@ -26,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Entity
 @Table(name = "payment")
@@ -54,20 +55,18 @@ public class Payment implements Serializable {
     @Column(name = "payment_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date paymentDate;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @JoinColumn(name = "staff_id", referencedColumnName = "staff_id")
-    @ManyToOne(optional = false)
-    private Staff staffId;
-    @JoinColumn(name = "rental_id", referencedColumnName = "rental_id")
-    @ManyToOne
-    private Rental rentalId;
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
     @ManyToOne(optional = false)
     private Customer customerId;
+    @JoinColumn(name = "rental_id", referencedColumnName = "rental_id")
+    @ManyToOne
+    private Rental rentalId;
+    @JoinColumn(name = "staff_id", referencedColumnName = "staff_id")
+    @ManyToOne(optional = false)
+    private Staff staffId;
 
     public Payment() {
     }
@@ -76,11 +75,10 @@ public class Payment implements Serializable {
         this.paymentId = paymentId;
     }
 
-    public Payment(Short paymentId, BigDecimal amount, Date paymentDate, Date lastUpdate) {
+    public Payment(Short paymentId, BigDecimal amount, Date paymentDate) {
         this.paymentId = paymentId;
         this.amount = amount;
         this.paymentDate = paymentDate;
-        this.lastUpdate = lastUpdate;
     }
 
     public Short getPaymentId() {
@@ -115,12 +113,12 @@ public class Payment implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public Staff getStaffId() {
-        return staffId;
+    public Customer getCustomerId() {
+        return customerId;
     }
 
-    public void setStaffId(Staff staffId) {
-        this.staffId = staffId;
+    public void setCustomerId(Customer customerId) {
+        this.customerId = customerId;
     }
 
     public Rental getRentalId() {
@@ -131,12 +129,12 @@ public class Payment implements Serializable {
         this.rentalId = rentalId;
     }
 
-    public Customer getCustomerId() {
-        return customerId;
+    public Staff getStaffId() {
+        return staffId;
     }
 
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
+    public void setStaffId(Staff staffId) {
+        this.staffId = staffId;
     }
 
     @Override
@@ -163,5 +161,5 @@ public class Payment implements Serializable {
     public String toString() {
         return "entity.Payment[ paymentId=" + paymentId + " ]";
     }
-    
+
 }

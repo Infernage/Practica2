@@ -5,6 +5,7 @@
  */
 package services;
 
+import ejb.ComentarioFacade;
 import ejb.FilmCategoryFacade;
 import ejb.FilmFacade;
 import ejb.LanguageFacade;
@@ -25,6 +26,8 @@ import javax.jws.WebService;
  */
 @WebService(serviceName = "FilmWebService")
 public class FilmWebService {
+    @EJB
+    private ComentarioFacade ejbRefComentario;
     @EJB
     private LanguageFacade ejbRefLanguage;
     @EJB
@@ -170,5 +173,18 @@ public class FilmWebService {
     public List<Film> findBySpecialFeatures(@WebParam(name = "features") String features) {
         return ejbRef.findBySpecialFeatures(SpecialFeatures.valueOf(features));
     }
+
+    /**
+     * Web service operation
+     * @param film
+     * @param comentario
+     */
+    @WebMethod(operationName = "addComentario")
+    @Oneway
+    public void addComentario(@WebParam(name = "film") Film film, @WebParam(name = "comentario") String comentario) {
+        ejbRefComentario.addComentario(film, comentario);
+    }
+    
+    
     
 }

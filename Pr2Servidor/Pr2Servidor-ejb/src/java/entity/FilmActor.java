@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package entity;
 
 import java.io.Serializable;
@@ -23,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Entity
 @Table(name = "film_actor")
@@ -42,12 +43,12 @@ public class FilmActor implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @JoinColumn(name = "film_id", referencedColumnName = "film_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Film film;
     @JoinColumn(name = "actor_id", referencedColumnName = "actor_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Actor actor;
+    @JoinColumn(name = "film_id", referencedColumnName = "film_id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Film film;
 
     public FilmActor() {
     }
@@ -81,20 +82,20 @@ public class FilmActor implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public Film getFilm() {
-        return film;
-    }
-
-    public void setFilm(Film film) {
-        this.film = film;
-    }
-
     public Actor getActor() {
         return actor;
     }
 
     public void setActor(Actor actor) {
         this.actor = actor;
+    }
+
+    public Film getFilm() {
+        return film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
     }
 
     @Override
@@ -121,5 +122,5 @@ public class FilmActor implements Serializable {
     public String toString() {
         return "entity.FilmActor[ filmActorPK=" + filmActorPK + " ]";
     }
-    
+
 }

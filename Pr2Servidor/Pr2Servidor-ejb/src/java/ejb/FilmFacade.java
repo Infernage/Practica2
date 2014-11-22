@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package ejb;
 
 import entity.Film;
@@ -15,11 +16,11 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Stateless
 public class FilmFacade extends AbstractFacade<Film> {
-    @PersistenceContext(unitName = "Pr2Servidor-ejbPU")
+    @PersistenceContext(unitName = "pr2Servidor-ejbPU")
     private EntityManager em;
 
     @Override
@@ -30,7 +31,7 @@ public class FilmFacade extends AbstractFacade<Film> {
     public FilmFacade() {
         super(Film.class);
     }
-    
+
     public List<Film> findByTitle(String title){
         return em.createNamedQuery("Film.findByTitle", Film.class).setParameter("title", title)
                 .getResultList();

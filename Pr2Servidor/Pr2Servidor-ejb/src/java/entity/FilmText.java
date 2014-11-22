@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package entity;
 
 import java.io.Serializable;
@@ -20,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Entity
 @Table(name = "film_text")
@@ -106,5 +107,5 @@ public class FilmText implements Serializable {
     public String toString() {
         return "entity.FilmText[ filmId=" + filmId + " ]";
     }
-    
+
 }

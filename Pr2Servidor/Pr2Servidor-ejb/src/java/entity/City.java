@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package entity;
 
 import java.io.Serializable;
@@ -30,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Entity
 @Table(name = "city")
@@ -57,11 +58,11 @@ public class City implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
+    private Collection<Address> addressCollection;
     @JoinColumn(name = "country_id", referencedColumnName = "country_id")
     @ManyToOne(optional = false)
     private Country countryId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
-    private Collection<Address> addressCollection;
 
     public City() {
     }
@@ -100,14 +101,6 @@ public class City implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public Country getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(Country countryId) {
-        this.countryId = countryId;
-    }
-
     @XmlTransient
     public Collection<Address> getAddressCollection() {
         return addressCollection;
@@ -115,6 +108,14 @@ public class City implements Serializable {
 
     public void setAddressCollection(Collection<Address> addressCollection) {
         this.addressCollection = addressCollection;
+    }
+
+    public Country getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(Country countryId) {
+        this.countryId = countryId;
     }
 
     @Override
@@ -141,5 +142,5 @@ public class City implements Serializable {
     public String toString() {
         return "entity.City[ cityId=" + cityId + " ]";
     }
-    
+
 }

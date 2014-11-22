@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package entity;
 
 import java.io.Serializable;
@@ -32,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Entity
 @Table(name = "film")
@@ -94,18 +95,20 @@ public class Film implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @JoinColumn(name = "original_language_id", referencedColumnName = "language_id")
-    @ManyToOne
-    private Language originalLanguageId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "film")
+    private Collection<FilmCategory> filmCategoryCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "film")
+    private Collection<FilmActor> filmActorCollection;
     @JoinColumn(name = "language_id", referencedColumnName = "language_id")
     @ManyToOne(optional = false)
     private Language languageId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "film")
-    private Collection<FilmActor> filmActorCollection;
+    @JoinColumn(name = "original_language_id", referencedColumnName = "language_id")
+    @ManyToOne
+    private Language originalLanguageId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "filmId")
+    private Collection<Comentario> comentarioCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "filmId")
     private Collection<Inventory> inventoryCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "film")
-    private Collection<FilmCategory> filmCategoryCollection;
 
     public Film() {
     }
@@ -211,20 +214,13 @@ public class Film implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public Language getOriginalLanguageId() {
-        return originalLanguageId;
+    @XmlTransient
+    public Collection<FilmCategory> getFilmCategoryCollection() {
+        return filmCategoryCollection;
     }
 
-    public void setOriginalLanguageId(Language originalLanguageId) {
-        this.originalLanguageId = originalLanguageId;
-    }
-
-    public Language getLanguageId() {
-        return languageId;
-    }
-
-    public void setLanguageId(Language languageId) {
-        this.languageId = languageId;
+    public void setFilmCategoryCollection(Collection<FilmCategory> filmCategoryCollection) {
+        this.filmCategoryCollection = filmCategoryCollection;
     }
 
     @XmlTransient
@@ -236,6 +232,31 @@ public class Film implements Serializable {
         this.filmActorCollection = filmActorCollection;
     }
 
+    public Language getLanguageId() {
+        return languageId;
+    }
+
+    public void setLanguageId(Language languageId) {
+        this.languageId = languageId;
+    }
+
+    public Language getOriginalLanguageId() {
+        return originalLanguageId;
+    }
+
+    public void setOriginalLanguageId(Language originalLanguageId) {
+        this.originalLanguageId = originalLanguageId;
+    }
+
+    @XmlTransient
+    public Collection<Comentario> getComentarioCollection() {
+        return comentarioCollection;
+    }
+
+    public void setComentarioCollection(Collection<Comentario> comentarioCollection) {
+        this.comentarioCollection = comentarioCollection;
+    }
+
     @XmlTransient
     public Collection<Inventory> getInventoryCollection() {
         return inventoryCollection;
@@ -243,15 +264,6 @@ public class Film implements Serializable {
 
     public void setInventoryCollection(Collection<Inventory> inventoryCollection) {
         this.inventoryCollection = inventoryCollection;
-    }
-
-    @XmlTransient
-    public Collection<FilmCategory> getFilmCategoryCollection() {
-        return filmCategoryCollection;
-    }
-
-    public void setFilmCategoryCollection(Collection<FilmCategory> filmCategoryCollection) {
-        this.filmCategoryCollection = filmCategoryCollection;
     }
 
     @Override
@@ -278,5 +290,5 @@ public class Film implements Serializable {
     public String toString() {
         return "entity.Film[ filmId=" + filmId + " ]";
     }
-    
+
 }

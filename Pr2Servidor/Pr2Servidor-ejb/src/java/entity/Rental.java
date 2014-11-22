@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package entity;
 
 import java.io.Serializable;
@@ -28,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Entity
 @Table(name = "rental")
@@ -59,17 +60,17 @@ public class Rental implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @OneToMany(mappedBy = "rentalId")
-    private Collection<Payment> paymentCollection;
-    @JoinColumn(name = "staff_id", referencedColumnName = "staff_id")
-    @ManyToOne(optional = false)
-    private Staff staffId;
-    @JoinColumn(name = "inventory_id", referencedColumnName = "inventory_id")
-    @ManyToOne(optional = false)
-    private Inventory inventoryId;
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
     @ManyToOne(optional = false)
     private Customer customerId;
+    @JoinColumn(name = "inventory_id", referencedColumnName = "inventory_id")
+    @ManyToOne(optional = false)
+    private Inventory inventoryId;
+    @JoinColumn(name = "staff_id", referencedColumnName = "staff_id")
+    @ManyToOne(optional = false)
+    private Staff staffId;
+    @OneToMany(mappedBy = "rentalId")
+    private Collection<Payment> paymentCollection;
 
     public Rental() {
     }
@@ -116,21 +117,12 @@ public class Rental implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    @XmlTransient
-    public Collection<Payment> getPaymentCollection() {
-        return paymentCollection;
+    public Customer getCustomerId() {
+        return customerId;
     }
 
-    public void setPaymentCollection(Collection<Payment> paymentCollection) {
-        this.paymentCollection = paymentCollection;
-    }
-
-    public Staff getStaffId() {
-        return staffId;
-    }
-
-    public void setStaffId(Staff staffId) {
-        this.staffId = staffId;
+    public void setCustomerId(Customer customerId) {
+        this.customerId = customerId;
     }
 
     public Inventory getInventoryId() {
@@ -141,12 +133,21 @@ public class Rental implements Serializable {
         this.inventoryId = inventoryId;
     }
 
-    public Customer getCustomerId() {
-        return customerId;
+    public Staff getStaffId() {
+        return staffId;
     }
 
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
+    public void setStaffId(Staff staffId) {
+        this.staffId = staffId;
+    }
+
+    @XmlTransient
+    public Collection<Payment> getPaymentCollection() {
+        return paymentCollection;
+    }
+
+    public void setPaymentCollection(Collection<Payment> paymentCollection) {
+        this.paymentCollection = paymentCollection;
     }
 
     @Override
@@ -173,5 +174,5 @@ public class Rental implements Serializable {
     public String toString() {
         return "entity.Rental[ rentalId=" + rentalId + " ]";
     }
-    
+
 }

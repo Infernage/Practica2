@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package entity;
 
 import java.io.Serializable;
@@ -30,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Entity
 @Table(name = "customer")
@@ -74,21 +75,19 @@ public class Customer implements Serializable {
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
-    private Collection<Payment> paymentCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
     private Collection<Rental> rentalCollection;
-    @JoinColumn(name = "store_id", referencedColumnName = "store_id")
-    @ManyToOne(optional = false)
-    private Store storeId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
+    private Collection<Payment> paymentCollection;
     @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     @ManyToOne(optional = false)
     private Address addressId;
+    @JoinColumn(name = "store_id", referencedColumnName = "store_id")
+    @ManyToOne(optional = false)
+    private Store storeId;
 
     public Customer() {
     }
@@ -97,13 +96,12 @@ public class Customer implements Serializable {
         this.customerId = customerId;
     }
 
-    public Customer(Short customerId, String firstName, String lastName, boolean active, Date createDate, Date lastUpdate) {
+    public Customer(Short customerId, String firstName, String lastName, boolean active, Date createDate) {
         this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.active = active;
         this.createDate = createDate;
-        this.lastUpdate = lastUpdate;
     }
 
     public Short getCustomerId() {
@@ -163,15 +161,6 @@ public class Customer implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Payment> getPaymentCollection() {
-        return paymentCollection;
-    }
-
-    public void setPaymentCollection(Collection<Payment> paymentCollection) {
-        this.paymentCollection = paymentCollection;
-    }
-
-    @XmlTransient
     public Collection<Rental> getRentalCollection() {
         return rentalCollection;
     }
@@ -180,12 +169,13 @@ public class Customer implements Serializable {
         this.rentalCollection = rentalCollection;
     }
 
-    public Store getStoreId() {
-        return storeId;
+    @XmlTransient
+    public Collection<Payment> getPaymentCollection() {
+        return paymentCollection;
     }
 
-    public void setStoreId(Store storeId) {
-        this.storeId = storeId;
+    public void setPaymentCollection(Collection<Payment> paymentCollection) {
+        this.paymentCollection = paymentCollection;
     }
 
     public Address getAddressId() {
@@ -194,6 +184,14 @@ public class Customer implements Serializable {
 
     public void setAddressId(Address addressId) {
         this.addressId = addressId;
+    }
+
+    public Store getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Store storeId) {
+        this.storeId = storeId;
     }
 
     @Override
@@ -220,5 +218,5 @@ public class Customer implements Serializable {
     public String toString() {
         return "entity.Customer[ customerId=" + customerId + " ]";
     }
-    
+
 }

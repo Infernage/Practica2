@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package entity;
 
 import java.io.Serializable;
@@ -29,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Entity
 @Table(name = "inventory")
@@ -50,14 +51,14 @@ public class Inventory implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inventoryId")
-    private Collection<Rental> rentalCollection;
-    @JoinColumn(name = "store_id", referencedColumnName = "store_id")
-    @ManyToOne(optional = false)
-    private Store storeId;
     @JoinColumn(name = "film_id", referencedColumnName = "film_id")
     @ManyToOne(optional = false)
     private Film filmId;
+    @JoinColumn(name = "store_id", referencedColumnName = "store_id")
+    @ManyToOne(optional = false)
+    private Store storeId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inventoryId")
+    private Collection<Rental> rentalCollection;
 
     public Inventory() {
     }
@@ -87,13 +88,12 @@ public class Inventory implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    @XmlTransient
-    public Collection<Rental> getRentalCollection() {
-        return rentalCollection;
+    public Film getFilmId() {
+        return filmId;
     }
 
-    public void setRentalCollection(Collection<Rental> rentalCollection) {
-        this.rentalCollection = rentalCollection;
+    public void setFilmId(Film filmId) {
+        this.filmId = filmId;
     }
 
     public Store getStoreId() {
@@ -104,12 +104,13 @@ public class Inventory implements Serializable {
         this.storeId = storeId;
     }
 
-    public Film getFilmId() {
-        return filmId;
+    @XmlTransient
+    public Collection<Rental> getRentalCollection() {
+        return rentalCollection;
     }
 
-    public void setFilmId(Film filmId) {
-        this.filmId = filmId;
+    public void setRentalCollection(Collection<Rental> rentalCollection) {
+        this.rentalCollection = rentalCollection;
     }
 
     @Override
@@ -136,5 +137,5 @@ public class Inventory implements Serializable {
     public String toString() {
         return "entity.Inventory[ inventoryId=" + inventoryId + " ]";
     }
-    
+
 }

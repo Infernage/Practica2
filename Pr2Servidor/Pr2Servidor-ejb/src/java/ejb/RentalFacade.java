@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package ejb;
 
 import entity.Rental;
@@ -12,11 +13,11 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Stateless
 public class RentalFacade extends AbstractFacade<Rental> {
-    @PersistenceContext(unitName = "Pr2Servidor-ejbPU")
+    @PersistenceContext(unitName = "pr2Servidor-ejbPU")
     private EntityManager em;
 
     @Override
@@ -27,5 +28,5 @@ public class RentalFacade extends AbstractFacade<Rental> {
     public RentalFacade() {
         super(Rental.class);
     }
-    
+
 }

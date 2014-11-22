@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package entity;
 
 import java.io.Serializable;
@@ -30,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Entity
 @Table(name = "store")
@@ -51,18 +52,18 @@ public class Store implements Serializable {
     @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    @JoinColumn(name = "manager_staff_id", referencedColumnName = "staff_id")
-    @OneToOne(optional = false)
-    private Staff managerStaffId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeId")
+    private Collection<Staff> staffCollection;
     @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     @ManyToOne(optional = false)
     private Address addressId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeId")
-    private Collection<Customer> customerCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeId")
-    private Collection<Staff> staffCollection;
+    @JoinColumn(name = "manager_staff_id", referencedColumnName = "staff_id")
+    @OneToOne(optional = false)
+    private Staff managerStaffId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeId")
     private Collection<Inventory> inventoryCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeId")
+    private Collection<Customer> customerCollection;
 
     public Store() {
     }
@@ -92,12 +93,13 @@ public class Store implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public Staff getManagerStaffId() {
-        return managerStaffId;
+    @XmlTransient
+    public Collection<Staff> getStaffCollection() {
+        return staffCollection;
     }
 
-    public void setManagerStaffId(Staff managerStaffId) {
-        this.managerStaffId = managerStaffId;
+    public void setStaffCollection(Collection<Staff> staffCollection) {
+        this.staffCollection = staffCollection;
     }
 
     public Address getAddressId() {
@@ -108,22 +110,12 @@ public class Store implements Serializable {
         this.addressId = addressId;
     }
 
-    @XmlTransient
-    public Collection<Customer> getCustomerCollection() {
-        return customerCollection;
+    public Staff getManagerStaffId() {
+        return managerStaffId;
     }
 
-    public void setCustomerCollection(Collection<Customer> customerCollection) {
-        this.customerCollection = customerCollection;
-    }
-
-    @XmlTransient
-    public Collection<Staff> getStaffCollection() {
-        return staffCollection;
-    }
-
-    public void setStaffCollection(Collection<Staff> staffCollection) {
-        this.staffCollection = staffCollection;
+    public void setManagerStaffId(Staff managerStaffId) {
+        this.managerStaffId = managerStaffId;
     }
 
     @XmlTransient
@@ -133,6 +125,15 @@ public class Store implements Serializable {
 
     public void setInventoryCollection(Collection<Inventory> inventoryCollection) {
         this.inventoryCollection = inventoryCollection;
+    }
+
+    @XmlTransient
+    public Collection<Customer> getCustomerCollection() {
+        return customerCollection;
+    }
+
+    public void setCustomerCollection(Collection<Customer> customerCollection) {
+        this.customerCollection = customerCollection;
     }
 
     @Override
@@ -159,5 +160,5 @@ public class Store implements Serializable {
     public String toString() {
         return "entity.Store[ storeId=" + storeId + " ]";
     }
-    
+
 }

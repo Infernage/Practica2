@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package ejb;
 
 import entity.Country;
@@ -12,11 +13,11 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author FRANCISCOJAVIER
+ * @author Daniel Alejandro Castro García <dandev237@gmail.com>
  */
 @Stateless
 public class CountryFacade extends AbstractFacade<Country> {
-    @PersistenceContext(unitName = "Pr2Servidor-ejbPU")
+    @PersistenceContext(unitName = "pr2Servidor-ejbPU")
     private EntityManager em;
 
     @Override
@@ -27,5 +28,5 @@ public class CountryFacade extends AbstractFacade<Country> {
     public CountryFacade() {
         super(Country.class);
     }
-    
+
 }
