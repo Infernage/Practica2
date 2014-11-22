@@ -31,9 +31,9 @@ public class FilmFacade extends AbstractFacade<Film> {
         super(Film.class);
     }
     
-    public Film findByTitle(String title){
+    public List<Film> findByTitle(String title){
         return em.createNamedQuery("Film.findByTitle", Film.class).setParameter("title", title)
-                .getSingleResult();
+                .getResultList();
     }
     
     public List<Film> findByReleaseYear(Integer year){

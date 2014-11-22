@@ -77,7 +77,7 @@ public class FilmWebService {
      * @return 
      */
     @WebMethod(operationName = "findByTitle")
-    public Film findByTitle(@WebParam(name = "title") String title) {
+    public List<Film> findByTitle(@WebParam(name = "title") String title) {
         return ejbRef.findByTitle(title);
     }
 
