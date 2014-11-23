@@ -4,6 +4,7 @@
     Author     : Alberto
 --%>
 
+<%@page import="java.net.URLEncoder"%>
 <%@page import="java.util.List"%>
 <%@page import="servlet.Film"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,41 +26,20 @@
         <table>
             <tr>
                 <th>T&iacute;tulo</th>
-                <th>Descripci&oacute;n</th>
-                <th>Clasificaci&oacute;n</th>
-                <th>Caracter&iacute;sticas especiales</th>
-                <th>Duraci&oacute;n</th>
-                <th>A&ntilde;o de lanzamiento</th>
-                <th>Duraci&oacute;n del alquiler</th>
-                <th>Tasa de alquiler</th>
-                <th>Coste de reemplazo</th>
-                <th>Idioma</th>
-                <th>Idioma original</th>
             </tr>
             <%
-                for(Film f : data){
-                    %>
-                    <tr>
-                        <td><%= f.getTitle()%></td>
-                        <td><%= f.getDescription() %></td>
-                        <td><%= f.getRating() %></td>
-                        <td><%= f.getSpecialFeatures() %></td>
-                        <td><%= f.getLength() %></td>
-                        <td><%= f.getReleaseYear() %></td>
-                        <td><%= f.getRentalDuration() %></td>
-                        <td><%= f.getRentalRate() %></td>
-                        <td><%= f.getReplacementCost() %></td>
-                        <td><%= f.getLanguageId() == null ? "No especificado" : 
-                                f.getLanguageId().getName() %></td>
-                        <td><%= f.getOriginalLanguageId() == null ? "No especificado" :
-                                f.getOriginalLanguageId().getName() %></td>
-                    </tr>
-                    <%
+                for (Film f : data) {
+            %>
+            <tr>
+                <td><a href="<%= getServletContext().getContextPath() %>/details?id=<%= f.getFilmId() %>">
+                        <%= f.getTitle() %></a></td>
+            </tr>
+            <%
                 }
             %>
         </table>
         <%
-        }
+            }
         %>
     </body>
 </html>

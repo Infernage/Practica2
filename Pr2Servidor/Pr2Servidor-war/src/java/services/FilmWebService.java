@@ -9,6 +9,7 @@ import ejb.ComentarioFacade;
 import ejb.FilmCategoryFacade;
 import ejb.FilmFacade;
 import ejb.LanguageFacade;
+import entity.Comentario;
 import entity.Film;
 import entity.Rating;
 import entity.SpecialFeatures;
@@ -185,7 +186,15 @@ public class FilmWebService {
     public void addComentario(@WebParam(name = "film") Film film, @WebParam(name = "comentario") String comentario, @WebParam(name = "autor") String autor) {
         ejbRefComentario.addComentario(film, comentario, autor);
     }
-    
-    
+
+    /**
+     * Web service operation
+     * @param film
+     * @return 
+     */
+    @WebMethod(operationName = "findCommentByFilm")
+    public List<Comentario> findCommentByFilm(@WebParam(name = "film") Film film) {
+       return ejbRefComentario.findByFilm(film);
+    }
     
 }

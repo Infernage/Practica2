@@ -7,7 +7,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.net.URLDecoder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +19,8 @@ import javax.xml.ws.WebServiceRef;
  *
  * @author Alberto
  */
-@WebServlet(name = "SearchServlet", urlPatterns = {"/search"})
-public class SearchServlet extends HttpServlet {
+@WebServlet(name = "DetailsServlet", urlPatterns = {"/details"})
+public class DetailsServlet extends HttpServlet {
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/Pr2Servidor-war/FilmWebService.wsdl")
     private FilmWebService_Service service;
@@ -36,41 +36,14 @@ public class SearchServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String searchType = request.getParameter("options"), data = request.getParameter("data");
         FilmWebService port = service.getFilmWebServicePort();
-        switch (searchType) {
-            case "title":
-                request.getSession().setAttribute("result", port.findByTitle(data));
-                break;
-            case "category":
-                request.getSession().setAttribute("result", port.findByCategory(data));
-                break;
-            case "year": // release date
-                request.getSession().setAttribute("result", port.findByReleaseYear(Integer.parseInt(data)));
-                break;
-            case "language":
-                request.getSession().setAttribute("result", port.findByLanguage(data));
-                break;
-            case "duration": // rental duration
-                request.getSession().setAttribute("result", port.findByRentalDuration(Integer.parseInt(data)));
-                break;
-            case "rate": // rental rate
-                request.getSession().setAttribute("result", port.findByRentalRate(Double.parseDouble(data)));
-                break;
-            case "length":
-                request.getSession().setAttribute("result", port.findByLength(Integer.parseInt(data)));
-                break;
-            case "cost": // reemplacement cost
-                request.getSession().setAttribute("result", port.findByReplacementCost(Double.parseDouble(data)));
-                break;
-            case "rating":
-                request.getSession().setAttribute("result", port.findByRating(data));
-                break;
-            case "features":
-                request.getSession().setAttribute("result", port.findBySpecialFeatures(data));
-                break;
+        Short id = Short.parseShort(request.getParameter("id"));
+        Film f = port.find(id);
+        if (f != null){
+            request.getSession().setAttribute("film", f);
+            request.getSession().setAttribute("comments", port.findCommentByFilm(f));
+            getServletContext().getRequestDispatcher("/showOne.jsp").forward(request, response);
         }
-        getServletContext().getRequestDispatcher("/show.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
