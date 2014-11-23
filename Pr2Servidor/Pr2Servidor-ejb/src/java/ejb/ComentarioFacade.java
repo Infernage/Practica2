@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -39,8 +40,6 @@ public class ComentarioFacade extends AbstractFacade<Comentario> {
      * @param comentarioText
      */
     public void addComentario(Film film, String comentarioText, String comentarioAutor) {
-        em.getTransaction().begin();
-
         Comentario comentario = new Comentario();
         comentario.setFilmId(film);
         comentario.setComentarioText(comentarioText);
@@ -48,12 +47,10 @@ public class ComentarioFacade extends AbstractFacade<Comentario> {
         comentario.setComentarioDate(new Date());
 
         em.persist(comentario);
-
-        em.getTransaction().commit();
     }
 
-    public List<Comentario> findByFilm(Film f){
-        return em.createNamedQuery("Comentario.findByFilm", Comentario.class).setParameter("id",
-                f.getFilmId()).getResultList();
+    public List<Comentario> findByFilm(Short f) {
+        return em.createNamedQuery("Comentario.findByFilm", Comentario.class)
+                .setParameter("id", f).getResultList();
     }
 }

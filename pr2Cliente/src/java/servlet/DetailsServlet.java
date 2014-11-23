@@ -41,7 +41,7 @@ public class DetailsServlet extends HttpServlet {
         Film f = port.find(id);
         if (f != null){
             request.getSession().setAttribute("film", f);
-            request.getSession().setAttribute("comments", port.findCommentByFilm(f));
+            request.getSession().setAttribute("comments", port.findCommentByFilm(id));
             getServletContext().getRequestDispatcher("/showOne.jsp").forward(request, response);
         }
     }

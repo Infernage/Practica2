@@ -24,7 +24,7 @@
         <%
         } else {
         %>
-        <table>
+        <table border="1">
             <tr>
                 <th>T&iacute;tulo</th>
                 <th>Descripci&oacute;n</th>
@@ -56,12 +56,20 @@
         </table>
         Comentarios:<br/>
         <form action="submitComment" method="POST">
-            <input type="text" name="nicknameTextbox" />
-            <input type="text" name="commentaryTextbox"/>
-            <input type="submit" value="Enviar"/>
-            <input type="hidden" name="id" value="<%= f.getFilmId()%>"/>
-        </form><br/>
+            <table>
+                <tr>
+                    <td><input type="text" name="nicknameTextbox" value="Usuario" /></td>
+                    <td><textarea rows="4" cols="50" name="commentaryTextbox">Comentario</textarea></td>
+                    <td><input type="submit" value="Enviar"/></td>
+                    <td><input type="hidden" name="id" value="<%= f.getFilmId()%>"/></td>
+                </tr>
+            </table>
+        </form>
         <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Comentario</th>
+            </tr>
             <%
                 for (Comentario c : comments) {
             %>

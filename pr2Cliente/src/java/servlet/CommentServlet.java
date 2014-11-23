@@ -38,8 +38,7 @@ public class CommentServlet extends HttpServlet {
         String user = request.getParameter("nicknameTextbox"), comment = request.getParameter("commentaryTextbox");
         Short id = Short.parseShort(request.getParameter("id"));
         FilmWebService port = service.getFilmWebServicePort();
-        Film f = port.find(id);
-        port.addComentario(f, comment, user);
+        port.addComentario(id, comment, user);
         response.sendRedirect("details?id=" + id);
     }
 

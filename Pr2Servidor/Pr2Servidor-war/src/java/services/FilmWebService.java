@@ -27,6 +27,7 @@ import javax.jws.WebService;
  */
 @WebService(serviceName = "FilmWebService")
 public class FilmWebService {
+
     @EJB
     private ComentarioFacade ejbRefComentario;
     @EJB
@@ -77,8 +78,9 @@ public class FilmWebService {
 
     /**
      * Web service operation
+     *
      * @param title
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "findByTitle")
     public List<Film> findByTitle(@WebParam(name = "title") String title) {
@@ -87,8 +89,9 @@ public class FilmWebService {
 
     /**
      * Web service operation
+     *
      * @param categoryName
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "findByCategory")
     public List<Film> findByCategory(@WebParam(name = "categoryName") String categoryName) {
@@ -97,8 +100,9 @@ public class FilmWebService {
 
     /**
      * Web service operation
+     *
      * @param year
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "findByReleaseYear")
     public List<Film> findByReleaseYear(@WebParam(name = "year") Integer year) {
@@ -107,8 +111,9 @@ public class FilmWebService {
 
     /**
      * Web service operation
+     *
      * @param language
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "findByLanguage")
     public Collection<Film> findByLanguage(@WebParam(name = "language") String language) {
@@ -117,8 +122,9 @@ public class FilmWebService {
 
     /**
      * Web service operation
+     *
      * @param rentalDur
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "findByRentalDuration")
     public List<Film> findByRentalDuration(@WebParam(name = "rentalDur") Integer rentalDur) {
@@ -127,8 +133,9 @@ public class FilmWebService {
 
     /**
      * Web service operation
+     *
      * @param rate
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "findByRentalRate")
     public List<Film> findByRentalRate(@WebParam(name = "rate") Double rate) {
@@ -137,8 +144,9 @@ public class FilmWebService {
 
     /**
      * Web service operation
+     *
      * @param length
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "findByLength")
     public List<Film> findByLength(@WebParam(name = "length") Integer length) {
@@ -147,8 +155,9 @@ public class FilmWebService {
 
     /**
      * Web service operation
+     *
      * @param cost
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "findByReplacementCost")
     public List<Film> findByReplacementCost(@WebParam(name = "cost") Double cost) {
@@ -157,8 +166,9 @@ public class FilmWebService {
 
     /**
      * Web service operation
+     *
      * @param rating
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "findByRating")
     public List<Film> findByRating(@WebParam(name = "rating") String rating) {
@@ -167,8 +177,9 @@ public class FilmWebService {
 
     /**
      * Web service operation
+     *
      * @param features
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "findBySpecialFeatures")
     public List<Film> findBySpecialFeatures(@WebParam(name = "features") String features) {
@@ -177,24 +188,26 @@ public class FilmWebService {
 
     /**
      * Web service operation
+     *
      * @param film
      * @param comentario
      * @param autor
      */
     @WebMethod(operationName = "addComentario")
     @Oneway
-    public void addComentario(@WebParam(name = "film") Film film, @WebParam(name = "comentario") String comentario, @WebParam(name = "autor") String autor) {
-        ejbRefComentario.addComentario(film, comentario, autor);
+    public void addComentario(@WebParam(name = "film") Short film, @WebParam(name = "comentario") String comentario, @WebParam(name = "autor") String autor) {
+        ejbRefComentario.addComentario(ejbRef.find(film), comentario, autor);
     }
 
     /**
      * Web service operation
+     *
      * @param film
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "findCommentByFilm")
-    public List<Comentario> findCommentByFilm(@WebParam(name = "film") Film film) {
-       return ejbRefComentario.findByFilm(film);
+    public List<Comentario> findCommentByFilm(@WebParam(name = "film") Short film) {
+        return ejbRefComentario.findByFilm(film);
     }
-    
+
 }
