@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Comentario.findAll", query = "SELECT c FROM Comentario c"),
     @NamedQuery(name = "Comentario.findByComentarioId", query = "SELECT c FROM Comentario c WHERE c.comentarioId = :comentarioId"),
-    @NamedQuery(name = "Comentario.findByComentarioDate", query = "SELECT c FROM Comentario c WHERE c.comentarioDate = :comentarioDate")})
+    @NamedQuery(name = "Comentario.findByComentarioDate", query = "SELECT c FROM Comentario c WHERE c.comentarioDate = :comentarioDate"),
+    @NamedQuery(name = "Comentario.findByComentarioAutor", query = "SELECT c FROM Comentario c WHERE c.comentarioAutor = :comentarioAutor")})
 public class Comentario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,6 +52,11 @@ public class Comentario implements Serializable {
     @Column(name = "comentario_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date comentarioDate;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "comentario_autor")
+    private String comentarioAutor;
     @JoinColumn(name = "film_id", referencedColumnName = "film_id")
     @ManyToOne(optional = false)
     private Film filmId;
@@ -62,9 +68,10 @@ public class Comentario implements Serializable {
         this.comentarioId = comentarioId;
     }
 
-    public Comentario(Integer comentarioId, Date comentarioDate) {
+    public Comentario(Integer comentarioId, Date comentarioDate, String comentarioAutor) {
         this.comentarioId = comentarioId;
         this.comentarioDate = comentarioDate;
+        this.comentarioAutor = comentarioAutor;
     }
 
     public Integer getComentarioId() {
@@ -89,6 +96,14 @@ public class Comentario implements Serializable {
 
     public void setComentarioDate(Date comentarioDate) {
         this.comentarioDate = comentarioDate;
+    }
+
+    public String getComentarioAutor() {
+        return comentarioAutor;
+    }
+
+    public void setComentarioAutor(String comentarioAutor) {
+        this.comentarioAutor = comentarioAutor;
     }
 
     public Film getFilmId() {

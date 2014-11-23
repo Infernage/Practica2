@@ -178,11 +178,12 @@ public class FilmWebService {
      * Web service operation
      * @param film
      * @param comentario
+     * @param autor
      */
     @WebMethod(operationName = "addComentario")
     @Oneway
-    public void addComentario(@WebParam(name = "film") Film film, @WebParam(name = "comentario") String comentario) {
-        ejbRefComentario.addComentario(film, comentario);
+    public void addComentario(@WebParam(name = "film") Film film, @WebParam(name = "comentario") String comentario, @WebParam(name = "autor") String autor) {
+        ejbRefComentario.addComentario(film, comentario, autor);
     }
     
     

@@ -121,5 +121,7 @@ public class SearchServlet extends HttpServlet {
         servlet.FilmWebService port = service.getFilmWebServicePort();
         return port.findByCategory(categoryName);
     }
+    
+    
 
 }

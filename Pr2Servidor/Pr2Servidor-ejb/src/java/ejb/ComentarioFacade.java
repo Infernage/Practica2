@@ -36,12 +36,13 @@ public class ComentarioFacade extends AbstractFacade<Comentario> {
      * @param film
      * @param comentarioText 
      */
-    public void addComentario(Film film, String comentarioText){
+    public void addComentario(Film film, String comentarioText, String comentarioAutor){
         em.getTransaction().begin();
         
         Comentario comentario = new Comentario();
         comentario.setFilmId(film);
         comentario.setComentarioText(comentarioText);
+        comentario.setComentarioAutor(comentarioAutor);
         comentario.setComentarioDate(new Date());
         
         em.persist(comentario);
